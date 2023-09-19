@@ -1,0 +1,9 @@
+<!--pages/home/index.wxml-->
+<text class="title">pages/home/index.wxml</text>
+
+<view>
+  <v-custom-button />
+</view>
+
+<view bindtap="onFetchProducts">fetchProducts</view>
+<view bindtap="onCreateNewProduct">createNewProduct</view>
