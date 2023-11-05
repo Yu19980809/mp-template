@@ -1,1 +1,5 @@
 /* components/custom-button/index.wxss */
+.button {
+  margin: 8rpx 0;
+  text-align: center;
+}

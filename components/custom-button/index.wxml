@@ -1,2 +1,2 @@
 <!--components/custom-button/index.wxml-->
-<text>components/custom-button/index.wxml</text>
+<button class="button">{{title}}</button>

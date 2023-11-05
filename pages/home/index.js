@@ -1,5 +1,6 @@
 // pages/home/index.js
-import { getProducts, newProduct } from '@/api/v1/index'
+import login from '@/utils/login'
+import { getCommodities, newCommodity } from '@/api/v1/index'
 
 Page({
 
@@ -67,17 +68,24 @@ Page({
   },
 
   /**
-   * 
+   * 登录
    */
-  onFetchProducts() {
-    getProducts()
+  onLogin() {
+    login()
   },
 
   /**
-   * 
+   * 获取商品数据
    */
-  onCreateNewProduct() {
-    const productInfo = { name: 'test' }
-    newProduct(productInfo)
+  onFetchAllCommodities() {
+    getCommodities()
+  },
+
+  /**
+   * 创建一个新的商品
+   */
+  onCreateNewCommodity() {
+    const productInfo = {name: 'test', price: '15'}
+    newCommodity(productInfo)
   }
 })

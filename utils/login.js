@@ -1,35 +1,20 @@
-const login = async (needLogin = false) => {
+import { loginApi } from '@/api/v1/index'
+
+const login = async () => {
   try {
-    if (!needLogin) {
-      wx.checkSession()
-      return wx.getStorageSync('profile')
-    }
-
-    const { code } = await wx.login()
-    const loginInfo = await _loginHandler(code)
-    wx.setStorageSync('profile', loginInfo)
-    return loginInfo
+    // 登录获取 code
+    const {code} = await wx.login()
+    // 通过 code 获取 openId，再根据 openId 获取用户信息
+    const {user, accessToken, refreshToken} = await loginApi(code)
+    wx.setStorageSync('profile', user)
+    wx.setStorageSync('accessToken', `Bearer ${accessToken}`)
+    wx.setStorageSync('refreshToken', refreshToken)
   } catch (error) {
-    return _errorHandler(error)
-  }
-}
-
-const _loginHandler = async () => {
-  // 后端登录请求
-  // 通过 code 换取 openId, sessionKey, unionId
-  // ...
-  return {
-    openId: '',
-    sessionKey: '',
-    unionId: '',
-    // ...
-  }
-}
-
-const _errorHandler = ({ errMsg }) => {
-  // 登录失效（即wxwx.checkSession返回false）
-  if (/checkSession:fail/.test(errMsg)) {
-    return login(true)
+    wx.showToast({
+      title: '登录失败，请稍后重试',
+      icon: 'error',
+      duration: 2000
+    })
   }
 }
 
